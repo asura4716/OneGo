@@ -9,23 +9,24 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <div class="container">
         <h1>OneGo</h1>
-        
-        <p>This app is to look up a restaurant that is near you by identifying your geolocation.</p>
-        <p>Put your term of interest and the distance that you would like to travel</p>
-        <form id="js-form">
-            <label for="search-term">Search term</label>
-            <input type="text" name="search-term" id="js-search-term">
+      <div class="initial">
+        <p>Find your nearest restaurant!</p>
+        <p>Lookup what you're looking for!</p>
+        <form id="js-form" class="js-form">
+            <label for="search-term">Search term: </label>
+            <input type="text" name="search-term" id="js-search-term" placeholder="What are you looking for?" >
 
-            <label for="search-radius">Search radius(miles)</label>
+            <label for="search-radius">Search radius(miles):</label>
             <input type="number" name="search-radius" id="js-search-radius" value="5">
 
-            <label for="max-results">Maximum results to return</label>
+            <label for="max-results">Max results: </label>
             <input type="number" name="max-results" id="js-max-limit" value="20">
 
-            <input type="submit" value="Go!">
+            <input type="submit" value="Go!" class="go">
+            <footer>©Ryoichiro Nagai 2020</footer>
         </form>
+      </div>
 
         <p id="js-error-message" class="error-message"></p>
         <section id="results" class="hidden">
@@ -33,7 +34,6 @@
           <ul id="results-list">
           </ul>
         </section>
-    </div>
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="script.js"></script>
 </body>

@@ -2,10 +2,12 @@
 
 const yelpApiKey = "PujIZIgI7cxHLz84besYxcEkJLhw2jjnJAZHDRph9MXX9KyRvmFjlBzpbqqEunYmxPM9St0fi7LMr-HCrtg5v5_7CGD8HJd7Yu0keLKE6kmM0BKvmTQLc_RgrTPLXXYx"; 
 const yelpSearchUrl = 'https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search';
+const yelpReviewUrl = 'https://api.yelp.com/v3/businesses/'
 
 const ipgeoSearchUrl = 'https://api.ipgeolocation.io/ipgeo?apiKey=';
 const ipgeoApiKey = "ec05f05d2f3e404eaa31e35f0367db34";
 const ipUrl = ipgeoSearchUrl + ipgeoApiKey;
+
 
 
 function formatQueryParams(params) {
@@ -27,11 +29,11 @@ function displayResults(responseJson) {
   for (let i = 0; i < responseJson.businesses.length; i++){
     $('#results-list').append(
       `<li><h3>${responseJson.businesses[i].name}</h3>
-      <p>Categories: ${responseJson.businesses[i].categories[0].title}</p>
-      <p>Rating: ${responseJson.businesses[i].rating}/5</p>
-      <p>${mileConversion(responseJson.businesses[i].distance)} miles</p>
-      <img class="images" src='${responseJson.businesses[i].image_url}'>
-      <a href="${responseJson.businesses[i].url}" target="_blank">Restaurant Link</a>
+      <p class="info categories">Categories: ${responseJson.businesses[i].categories[0].title}</p>
+      <p class="info">Rating: ${responseJson.businesses[i].rating}/5</p>
+      <p class="info distance">${mileConversion(responseJson.businesses[i].distance)} miles</p>
+      <a href="${responseJson.businesses[i].url}" target="_blank"><img class="images" src='${responseJson.businesses[i].image_url}'></a>
+      <a href="${responseJson.businesses[i].url}" target="_blank" class="yelpLink">Details</a>
       </li>`
     )};
   //display the results section  
@@ -46,13 +48,13 @@ function getYelpInfo(query, limit=20, radius=5) {
   }).then(function(response) {
     return response.json(); // pass the data as promise to next then block
   }).then(function(data) {
-    var longitude = data.longitude;
-    var latitude = data.latitude;
+    let longitude = data.longitude;
+    let latitude = data.latitude;
 
     console.log(longitude, '\n');
     console.log(latitude, '\n');
 
-    const params = {
+    const yelpParams = {
       term: query+" restaurant",
       longitude: longitude,
       latitude: latitude,
@@ -60,7 +62,7 @@ function getYelpInfo(query, limit=20, radius=5) {
       limit
     }
 
-    const queryString = formatQueryParams(params)
+    const queryString = formatQueryParams(yelpParams)
     const yelpUrl = yelpSearchUrl + '?' + queryString;
     console.log(yelpUrl);
   
@@ -81,8 +83,8 @@ function getYelpInfo(query, limit=20, radius=5) {
     .then(responseJson => displayResults(responseJson, limit))
     .catch(err => {
       $('#js-error-message').text(`Something went wrong: ${err.description}`);
-    })})};
-
+    })
+  })};
 
 function watchForm() {
   $('form').submit(event => {
@@ -96,3 +98,8 @@ function watchForm() {
 }
 
 $(watchForm);
+
+var searchEx = [ 'Want some suggestions?', 'African', 'American', 'Belgian', 'Barbeque', 'Caribbean', 'Chilean', 'Filipino', 'Fondue', 'French', 'German', 'Italian', 'Japanese', 'Mediterranean', 'Peruvian', 'Steakhouse', 'Vegan', 'Yugoslav' ];
+setInterval(function() {
+  $("input#js-search-term").attr("placeholder", searchEx[searchEx.push(searchEx.shift())-1]);
+  }, 3000);
