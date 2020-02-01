@@ -167,6 +167,8 @@
     li {
       display: inline-block;
       border-style: none;
+      width: 350px;
+      padding-bottom: 35px;
     }
   
     .js-form {
