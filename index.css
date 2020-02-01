@@ -67,6 +67,19 @@
     margin-right: auto;
     width: 50px;
     margin-top: 10px;
+    border: none;
+    background-color: darkcyan;
+    color: blue; 
+    border-style: solid;
+  }
+  
+  .go:hover {
+    color: sandybrown;
+    border-style: solid;
+    border-color:  sandybrown;
+    background-color: gold;
+    transition: background .2s ease-in, color .2s ease-in, border-color .2s ease-in;
+    cursor: pointer;
   }
   
   label {
@@ -138,18 +151,40 @@
   
   @media screen and (min-width: 500px){
     body {
-    width: auto;
-    font-size: 20px;
-  }
+      width: auto;
+      font-size: 20px;
+    }
+    h1 {
+      text-align: initial;
+      margin-left: 50px;
+    }
+  
+    p {
+      text-align: initial;
+      margin-left: 75px;
+    }
+  
     li {
       display: inline-block;
       border-style: none;
     }
   
     .js-form {
-      display: inline;
+      text-align: initial;
+      margin-left: 80px;
     }
+    
+    .go {
+      position: absolute;
+      top: 175px;
+      left: 500px;
+      width: 100px;
+      height: 100px;
+      font-size: 20px;
+    }
+  
     footer {
       width: 100%;
+      left: 0;
     }
   }
